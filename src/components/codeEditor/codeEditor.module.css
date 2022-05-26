@@ -1,0 +1,11 @@
+.editorWrapper {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: auto;
+  box-shadow: var(--box-shadow-1);
+}
+
+.editorMain {
+  width: 100%;
+}

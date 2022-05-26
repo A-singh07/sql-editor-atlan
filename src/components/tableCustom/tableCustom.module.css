@@ -1,0 +1,5 @@
+.dataGridContainer {
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-1) !important;
+  overflow: hidden;
+}

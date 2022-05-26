@@ -11,8 +11,15 @@ import {
   IconButton,
   Typography
 } from '@mui/material';
+// Icons
 import MenuIcon from '@mui/icons-material/Menu';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
+
+import CodeEditor from '../../components/codeEditor/CodeEditor';
+import TableLayout from '../../layouts/tableLayout/TableLayout';
+// import TableCustom from '../../components/tableCustom/TableCustom';
+// Styles
 // import styles from './mainLayout.module.css';
 
 const drawerWidth = 240;
@@ -29,25 +36,13 @@ const MainLayout = (props) => {
 
   const navItems = [
     {
-      navitem: 'Conversations',
-      query: '/dashboard/convo',
+      navitem: 'Categories',
+      query: 'select * from categories',
     },
     {
-      navitem: 'Members',
-      query: '/dashboard/members',
+      navitem: 'Orders',
+      query: 'select * from orders',
     },
-    {
-      navitem: 'Speakers',
-      query: '/dashboard/speakers',
-    },
-    {
-      navitem: 'Publicaitons',
-      query: '/dashboard/publications',
-    },
-    {
-      navitem: 'User Messages',
-      query: '/dashboard/messages',
-    }
   ]
 
   const drawer = (
@@ -58,6 +53,14 @@ const MainLayout = (props) => {
         <Typography variant="h5" component="h5">
           Tables
         </Typography>
+        <IconButton
+          color="inherit"
+          edge="start"
+          // onClick={}
+          sx={{ ml: 'auto' }}
+        >
+          <AddCircleOutlineRoundedIcon />
+        </IconButton>
       </Toolbar>
       {/* ----- */}
 
@@ -102,7 +105,7 @@ const MainLayout = (props) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ ml: 'auto', display: { lg: 'none' } }}
+            sx={{ display: { lg: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -139,12 +142,16 @@ const MainLayout = (props) => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: '2000px',
+          maxWidth: { xs: '100%', lg: `calc(100vw - ${drawerWidth}px)` },
           minHeight: `calc(100vh - ${appBarHeight}px)`,
-          p: { xs: '2rem 1.5rem', lg: '2rem' },
+          mt: `${appBarHeight}px`,
+          mr: { xs: 0, lg: `${drawerWidth}px` },
+          p: { xs: '2rem 1.5rem', lg: '2rem 4rem' },
+          background: '#f8f9fb'
         }}
       >
-        {/* <Outlet /> */}
+        <CodeEditor />
+        <TableLayout />
       </Box>
     </Box>
   )
