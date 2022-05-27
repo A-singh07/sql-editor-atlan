@@ -30,7 +30,7 @@ function App() {
     tableRow: [],
   })
 
-  // Convert the response suitable got MUI data grid Table
+  // --- Convert the response suitable got MUI data grid Table
   const dataGridFormat = (res) => {
     setTableData({
       tableColumn: [],
@@ -55,7 +55,7 @@ function App() {
     });
   }
 
-  // Run SQL command received from the editor
+  // --- Run SQL command received from the editor
   const runSqlCommand = (command, table) => {
     alasql.promise(command, [table])
       .then(res => {
@@ -63,7 +63,7 @@ function App() {
       })
   }
 
-  // Load Data on table when selected from the list.
+  // --- Load Data on table when selected from the list.
   const loadTableData = (table, tableName) => {
 
     alasql.promise("select * from CSV(?)", [table])
