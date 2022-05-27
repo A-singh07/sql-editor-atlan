@@ -4,6 +4,8 @@ import ButtonCustom from '../../components/buttonCustom/ButtonCustom';
 import { csvFilesList } from '../../components/CsvFiles';
 // context
 import { SqlContext } from '../../context/SqlContext';
+// icons
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 // styles
 import styles from './codeEditorLayout.module.css';
 
@@ -25,20 +27,26 @@ const CodeEditorLayout = () => {
   }
 
   return (
-    <div className={styles.editorWrapper}>
-      <CodeEditor
-        fontSize={18}
-        theme={'xcode'}
-        mode={"mysql"}
-        onChange={setCommandValue}
-        value={commandValue}
-      />
-      <ButtonCustom
-        secondary
-        btnText={'Run Query'}
-        customStyle={{ marginTop: '1rem' }}
-        onClick={handleClick}
-      />
+    <div style={{ maxWidth: '1200px', margin: 'auto' }}>
+      <div className={styles.layoutWrapper}>
+        <div className={styles.editorWrapper}>
+          <CodeEditor
+            fontSize={18}
+            theme={'xcode'}
+            mode={"mysql"}
+            onChange={setCommandValue}
+            value={commandValue}
+          />
+          <ButtonCustom
+            secondary
+            customStyle={{ marginTop: '1rem' }}
+            btnText={'Run Query'}
+            onClick={handleClick}
+            rightIcon={<ArrowForwardIosRoundedIcon />}
+          />
+        </div>
+      </div>
+
     </div>
   )
 }

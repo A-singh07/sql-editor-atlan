@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 // Styles
 import styles from './tableCustom.module.css';
 
@@ -17,6 +17,7 @@ const TableDataGrid = ({ tableRows, tableColumns }) => {
         rowsPerPageOptions={[10, 20, 50, 100]}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         pageSize={pageSize}
+        components={{ Toolbar: GridToolbar }}
         // autoHeight
         // autoPageSize
         pagination

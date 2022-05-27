@@ -1,6 +1,24 @@
+.layoutWrapper {
+  display: grid;
+  grid-template-columns: minmax(auto, 800px) 1fr;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
 .editorWrapper {
   border-radius: 0.5rem;
-  max-width: 1200px;
-  margin: auto;
   height: max-content;
+  /* max-width: 800px; */
+}
+
+@media screen and (max-width: 1400px) {
+  .layoutWrapper {
+    grid-template-columns: minmax(auto, 650px) 1fr;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .layoutWrapper {
+    grid-template-columns: 1fr;
+  }
 }

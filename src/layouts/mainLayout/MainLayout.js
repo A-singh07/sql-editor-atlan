@@ -9,11 +9,11 @@ import {
   Toolbar,
   Divider,
   IconButton,
-  Typography
+  Typography,
+  useMediaQuery
 } from '@mui/material';
 // Icons
 import MenuIcon from '@mui/icons-material/Menu';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
 // Layouts
 import CodeEditorLayout from '../codeEditorLayout/CodeEditorLayout';
@@ -31,6 +31,7 @@ const appBarHeight = 64
 const MainLayout = (props) => {
   const { window } = props;
   const { loadTableData } = useContext(SqlContext);
+  const matches = useMediaQuery('(min-width: 1200px)', { noSsr: true });
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -51,14 +52,6 @@ const MainLayout = (props) => {
         <Typography variant="h5" component="h5">
           Tables
         </Typography>
-        <IconButton
-          color="inherit"
-          edge="start"
-          // onClick={}
-          sx={{ ml: 'auto' }}
-        >
-          <AddCircleOutlineRoundedIcon />
-        </IconButton>
       </Toolbar>
       {/* ----- */}
 
@@ -67,7 +60,7 @@ const MainLayout = (props) => {
         {
           csvFilesList.map((item, index) =>
             <ListItemButton
-              onClick={() => loadTableData(item.file, item.name)}
+              onClick={() => { loadTableData(item.file, item.name); handleDrawerToggle() }}
               sx={{ paddingY: '0.875rem' }}
               key={index}
             >
@@ -116,27 +109,15 @@ const MainLayout = (props) => {
       <Drawer
         container={container}
         anchor="right"
-        variant="temporary"
+        variant={matches ? "permanent" : "temporary"}
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
           keepMounted: true,
         }}
         sx={{
-          display: { xs: 'block', lg: 'none' },
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
         }}
-      >
-        {drawer}
-      </Drawer>
-      <Drawer
-        variant="permanent"
-        anchor="right"
-        sx={{
-          display: { xs: 'none', lg: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-        }}
-        open
       >
         {drawer}
       </Drawer>
