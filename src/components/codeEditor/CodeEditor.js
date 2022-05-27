@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-mysql";
 import "ace-builds/src-noconflict/theme-xcode";
@@ -7,11 +7,9 @@ import "ace-builds/src-noconflict/ext-language_tools";
 // Styles
 import styles from './codeEditor.module.css'
 // Context
-import { SqlContext } from '../../context/SqlContext';
 
-const CodeEditor = ({ fontSize, theme, mode }) => {
+const CodeEditor = ({ fontSize, theme, mode, onChange, value }) => {
 
-  const { setCommandValue, commandValue } = useContext(SqlContext);
   // const [editorValue, setEditorValue] = useState("");
 
   return (
@@ -20,8 +18,8 @@ const CodeEditor = ({ fontSize, theme, mode }) => {
       mode={mode}
       theme={theme} // use "monokai" for dark mode
       name="code-editor"
-      onChange={setCommandValue}
-      value={commandValue}
+      onChange={onChange}
+      value={value}
       highlightActiveLine={true}
       showGutter={true}
       fontSize={fontSize}

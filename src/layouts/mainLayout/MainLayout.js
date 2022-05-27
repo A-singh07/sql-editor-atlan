@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import alasql from 'alasql';
+import { useState, useEffect, useContext } from 'react';
 import {
   AppBar,
   Drawer,
@@ -23,7 +22,6 @@ import TableLayout from '../tableLayout/TableLayout';
 import { SqlContext } from '../../context/SqlContext';
 // Files List
 import { csvFilesList } from '../../components/CsvFiles';
-import categories from '../../data/categories.csv';
 // Styles
 // import styles from './mainLayout.module.css';
 
@@ -32,13 +30,18 @@ const appBarHeight = 64
 
 const MainLayout = (props) => {
   const { window } = props;
-  const { loadTableData, setTableData, setCommandValue } = useContext(SqlContext);
+  const { loadTableData } = useContext(SqlContext);
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    // load default table data
+    loadTableData(csvFilesList[0].file, csvFilesList[0].name)
+  }, [])
 
   const drawer = (
     <>

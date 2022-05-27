@@ -30,48 +30,54 @@ function App() {
     tableRow: [],
   })
 
-  const loadTableData = (table, tableName) => {
-
+  // Convert the response suitable got MUI data grid Table
+  const dataGridFormat = (res) => {
     setTableData({
       tableColumn: [],
       tableRow: []
     })
 
+    let column = [];
+
+    // Array for column fields - as per MUI DataGrid structure.
+    Object.keys(res[0]).forEach((key) => {
+      const columnCell = {
+        field: key,
+        headerName: key,
+        width: (key.length * 10) + 20
+      }
+      column.push(columnCell);
+    });
+
+    setTableData({
+      tableColumn: column,
+      tableRow: res,
+    });
+  }
+
+  // Run SQL command received from the editor
+  const runSqlCommand = (command, table) => {
+    alasql.promise(command, [table])
+      .then(res => {
+        dataGridFormat(res)
+      })
+  }
+
+  // Load Data on table when selected from the list.
+  const loadTableData = (table, tableName) => {
+
     alasql.promise("select * from CSV(?)", [table])
       .then(res => {
-        let column = [];
         // console.log('RES', res)
         setCommandValue(`select * from ${tableName}`)
-
-        // Array for column fields - required for MUI DataGrid structure.
-        Object.keys(res[0]).forEach((key) => {
-          const columnCell = {
-            field: key,
-            headerName: key,
-            width: (key.length * 10) + 20
-          }
-          column.push(columnCell);
-        });
-
-        setTableData({
-          tableColumn: column,
-          tableRow: res,
-        });
+        dataGridFormat(res)
       })
       .catch(err => console.log('Error in running the command!', err));
   }
 
-  React.useEffect(() => {
-
-    // const csvFile = process.env.PUBLIC_URL + '/data/categories.csv';
-    // const fileName = csvFile.split('.')
-    // console.log('FILEE', fileName)
-
-  }, [])
-
   return (
     <ThemeProvider theme={theme}>
-      <SqlContext.Provider value={{ loadTableData, commandValue, setCommandValue, tableData, setTableData }}>
+      <SqlContext.Provider value={{ loadTableData, runSqlCommand, commandValue, setCommandValue, tableData, setTableData }}>
         <MainLayout />
       </SqlContext.Provider>
     </ThemeProvider>
