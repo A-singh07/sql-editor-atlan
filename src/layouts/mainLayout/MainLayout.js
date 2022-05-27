@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import alasql from 'alasql';
 import {
   AppBar,
   Drawer,
@@ -15,35 +16,29 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
-
-import CodeEditor from '../../components/codeEditor/CodeEditor';
-import TableLayout from '../../layouts/tableLayout/TableLayout';
-// import TableCustom from '../../components/tableCustom/TableCustom';
+// Layouts
+import CodeEditorLayout from '../codeEditorLayout/CodeEditorLayout';
+import TableLayout from '../tableLayout/TableLayout';
+// Context
+import { SqlContext } from '../../context/SqlContext';
+// Files List
+import { csvFilesList } from '../../components/CsvFiles';
+import categories from '../../data/categories.csv';
 // Styles
 // import styles from './mainLayout.module.css';
 
-const drawerWidth = 240;
+const drawerWidth = 270;
 const appBarHeight = 64
 
 const MainLayout = (props) => {
-  const { window } = props
+  const { window } = props;
+  const { loadTableData, setTableData, setCommandValue } = useContext(SqlContext);
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const navItems = [
-    {
-      navitem: 'Categories',
-      query: 'select * from categories',
-    },
-    {
-      navitem: 'Orders',
-      query: 'select * from orders',
-    },
-  ]
 
   const drawer = (
     <>
@@ -67,12 +62,16 @@ const MainLayout = (props) => {
       <Divider />
       <List>
         {
-          navItems.map((item, index) =>
-            <ListItemButton sx={{ paddingY: '1rem' }} key={index}>
+          csvFilesList.map((item, index) =>
+            <ListItemButton
+              onClick={() => loadTableData(item.file, item.name)}
+              sx={{ paddingY: '0.875rem' }}
+              key={index}
+            >
               <ListItemIcon>
                 <StorageRoundedIcon />
               </ListItemIcon>
-              {item.navitem}
+              {item.name}
             </ListItemButton>
           )
         }
@@ -150,7 +149,7 @@ const MainLayout = (props) => {
           background: '#f8f9fb'
         }}
       >
-        <CodeEditor />
+        <CodeEditorLayout />
         <TableLayout />
       </Box>
     </Box>

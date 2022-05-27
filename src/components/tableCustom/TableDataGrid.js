@@ -3,22 +3,22 @@ import { DataGrid } from '@mui/x-data-grid';
 // Styles
 import styles from './tableCustom.module.css';
 
-
-
 const TableDataGrid = ({ tableRows, tableColumns }) => {
 
   const [pageSize, setPageSize] = useState(10)
 
   return (
-    <div style={{ height: 350, width: '100%', marginTop: '3rem' }}>
+    <div className={styles.dataGridContainer}>
       <DataGrid
-        className={styles.dataGridContainer}
+        className={styles.dataGrid}
         rows={tableRows}
+        getRowId={(row) => row[Object.keys(row)[0]]}
         columns={tableColumns}
-        rowsPerPageOptions={[20, 50, 100]}
+        rowsPerPageOptions={[10, 20, 50, 100]}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         pageSize={pageSize}
-        autoHeight
+        // autoHeight
+        // autoPageSize
         pagination
         sx={{
           borderRadius: '10px',

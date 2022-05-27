@@ -1,42 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-mysql";
 import "ace-builds/src-noconflict/theme-xcode";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/ext-language_tools";
 // Styles
 import styles from './codeEditor.module.css'
+// Context
+import { SqlContext } from '../../context/SqlContext';
 
-const CodeEditor = () => {
+const CodeEditor = ({ fontSize, theme, mode }) => {
 
-  const [editorValue, setEditorValue] = useState("")
-
-  // React.useEffect(() => {
-  //   console.log('EDITOR VALUE', editorValue)
-  // }, [editorValue])
+  const { setCommandValue, commandValue } = useContext(SqlContext);
+  // const [editorValue, setEditorValue] = useState("");
 
   return (
-    <div className={styles.editorWrapper}>
-      <AceEditor
-        // className={styles.editorMain}
-        placeholder="Start Querying"
-        mode="mysql"
-        theme="xcode" // use "monokai" for dark mode
-        name="sql-code-editor"
-        onChange={setEditorValue}
-        value={editorValue}
-        highlightActiveLine={true}
-        showGutter={true}
-        fontSize={16}
-        width={'100%'}
-        height={'350px'}
-        setOptions={{
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true,
-          enableSnippets: true,
-          showLineNumbers: true,
-          tabSize: 2
-        }}
-      />
-    </div>
+    <AceEditor
+      placeholder="Start Querying..."
+      mode={mode}
+      theme={theme} // use "monokai" for dark mode
+      name="code-editor"
+      onChange={setCommandValue}
+      value={commandValue}
+      highlightActiveLine={true}
+      showGutter={true}
+      fontSize={fontSize}
+      width={'100%'}
+      height={'250px'}
+      className={styles.editorMain}
+      enableLiveAutocompletion={true}
+      enableBasicAutocompletion={true}
+      enableSnippets={true}
+      showLineNumbers={true}
+    />
   )
 }
 

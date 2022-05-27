@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ThemeProvider,
   createTheme
 } from '@mui/material/styles'
-// import alasql from 'alasql';
-// import csv from './data/categories.csv';
+import alasql from 'alasql';
 // Layout
 import MainLayout from './layouts/mainLayout/MainLayout';
+// Context
+import { SqlContext } from './context/SqlContext';
 
 import './App.css';
 
@@ -21,17 +22,58 @@ function App() {
     //     main: ""
     //   }
     // }
+  });
+
+  const [commandValue, setCommandValue] = useState("")
+  const [tableData, setTableData] = useState({
+    tableColumn: [],
+    tableRow: [],
   })
 
-  // React.useEffect(() => {
-  //   alasql.promise("SELECT * FROM CSV(?, {headers: false, separator:','})", [csv])
-  //     .then(res => console.log('DATA', res))
+  const loadTableData = (table, tableName) => {
 
-  // }, [])
+    setTableData({
+      tableColumn: [],
+      tableRow: []
+    })
+
+    alasql.promise("select * from CSV(?)", [table])
+      .then(res => {
+        let column = [];
+        // console.log('RES', res)
+        setCommandValue(`select * from ${tableName}`)
+
+        // Array for column fields - required for MUI DataGrid structure.
+        Object.keys(res[0]).forEach((key) => {
+          const columnCell = {
+            field: key,
+            headerName: key,
+            width: (key.length * 10) + 20
+          }
+          column.push(columnCell);
+        });
+
+        setTableData({
+          tableColumn: column,
+          tableRow: res,
+        });
+      })
+      .catch(err => console.log('Error in running the command!', err));
+  }
+
+  React.useEffect(() => {
+
+    // const csvFile = process.env.PUBLIC_URL + '/data/categories.csv';
+    // const fileName = csvFile.split('.')
+    // console.log('FILEE', fileName)
+
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
-      <MainLayout />
+      <SqlContext.Provider value={{ loadTableData, commandValue, setCommandValue, tableData, setTableData }}>
+        <MainLayout />
+      </SqlContext.Provider>
     </ThemeProvider>
   );
 }

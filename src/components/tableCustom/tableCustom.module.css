@@ -1,4 +1,12 @@
 .dataGridContainer {
+  height: 50vh;
+  max-height: 600px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 1rem auto 0;
+}
+
+.dataGrid {
   border-radius: 10px;
   box-shadow: var(--box-shadow-1) !important;
   overflow: hidden;
