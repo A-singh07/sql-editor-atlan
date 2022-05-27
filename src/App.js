@@ -17,11 +17,11 @@ function App() {
     typography: {
       "fontFamily": `"Poppins", sans-serif`,
     },
-    // palette: {
-    //   primary: {
-    //     main: ""
-    //   }
-    // }
+    palette: {
+      primary: {
+        main: "#4d77ae"
+      }
+    }
   });
 
   const [commandValue, setCommandValue] = useState("")

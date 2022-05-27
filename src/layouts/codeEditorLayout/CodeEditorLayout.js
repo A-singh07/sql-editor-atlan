@@ -29,24 +29,21 @@ const CodeEditorLayout = () => {
   return (
     <div style={{ maxWidth: '1200px', margin: 'auto' }}>
       <div className={styles.layoutWrapper}>
-        <div className={styles.editorWrapper}>
-          <CodeEditor
-            fontSize={18}
-            theme={'xcode'}
-            mode={"mysql"}
-            onChange={setCommandValue}
-            value={commandValue}
-          />
-          <ButtonCustom
-            secondary
-            customStyle={{ marginTop: '1rem' }}
-            btnText={'Run Query'}
-            onClick={handleClick}
-            rightIcon={<ArrowForwardIosRoundedIcon />}
-          />
-        </div>
+        <CodeEditor
+          fontSize={18}
+          theme={'xcode'}
+          mode={"mysql"}
+          onChange={setCommandValue}
+          value={commandValue}
+        />
+        <ButtonCustom
+          secondary
+          customStyle={{ marginTop: '1rem' }}
+          btnText={'Run Query'}
+          onClick={handleClick}
+          rightIcon={<ArrowForwardIosRoundedIcon />}
+        />
       </div>
-
     </div>
   )
 }
