@@ -33,9 +33,6 @@ const CodeEditorLayout = () => {
       <div className={styles.layoutWrapper}>
         <Suspense fallback={<LoadingComponent />}>
           <CodeEditor
-            fontSize={18}
-            theme={'xcode'}
-            mode={"mysql"}
             onChange={setCommandValue}
             value={commandValue}
           />
