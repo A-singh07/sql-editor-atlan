@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# SQL Editor Panel
+#### using React.js and Material UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### [WebApp Hosted Link](https://sql-editor-panel.vercel.app/)
 
-## Available Scripts
 
-In the project directory, you can run:
+## Overview
+SQL editor built using React.js and Material UI, capable of performing basic SQL operations and handling large set of data without crashing the browser. Several features have been offered in the application list of which is mentioned below.
 
-### `npm start`
+![main-page-ss](https://github.com/A-singh07/sql-editor-atlan/blob/main/src/assets/sql-editor-screenshot.png?raw=true)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
+- Can use sidebar menu to get the data in output table just with a click.
+- Can use code editor to type-in the commands and get results in output table.
+- Features like autocomplete and code snippets are also provided with the editor.
+- Can export data from the output table in CSV format or can print as well.
+- Can filter, search and sort directly from the toolbars above the table or from the Column headers itself.
+- Can perform pagination for large set of data
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Basic SQL commands like the one mentioned below works efficiently:
+> select * from customers where customerID="ALFKI"
 
-### `npm test`
+##### Pre-defined Commands:
+- select * from categories
+- select * from customers
+- select * from products
+- select * from regions
+- select * from shippers
+- select * from suppliers
+- select * from territories
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Packages Used
+- [Material UI](https://mui.com/) : UI components and data grid table
+- [AlaSQL](http://alasql.org/) : Handles sql queries and to read csv files
+- [React-Ace](https://www.npmjs.com/package/react-ace) : Emeddable code editor
 
-### `npm run build`
+## Application Performance
+[Google PageSpeed](https://pagespeed.web.dev/) has been used to measure the performance of the application.
+Page Load time of the application is found to be between 0.7s to 0.9s.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![pageSpeed-score](https://github.com/A-singh07/sql-editor-atlan/blob/main/src/assets/pageSpeed%20-%20Performance%20score.png?raw=true)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+##### Steps taken to optimize the application:
+- Google Fonts was found to be the render blocking element. To avoid this, it has been asynchronously loaded, using rel="stylesheet preload prefetch" for its link tag.
+- Major components like react-ace editor and MUI TableDataGrid have been lazy loaded using React.lazy(). And added a loading component as a fallback.
+- Implemented suggestions from pageSpeed during the test to remove unused JS as much as possible.
