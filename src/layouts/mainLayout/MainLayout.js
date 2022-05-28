@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 // Icons
 import MenuIcon from '@mui/icons-material/Menu';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
 // Layouts
 import CodeEditorLayout from '../codeEditorLayout/CodeEditorLayout';
@@ -94,16 +95,28 @@ const MainLayout = (props) => {
           <Typography variant="h4" component="h1" sx={{ m: 'auto' }}>
             SQL Editor
           </Typography>
-
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="github"
             edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ display: { lg: 'none' } }}
+            href="https://github.com/A-singh07/sql-editor-atlan"
+            target="_blank"
           >
-            <MenuIcon />
+            <GitHubIcon />
           </IconButton>
+
+          {
+            !matches &&
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ marginLeft: '10px' }}
+            >
+              <MenuIcon />
+            </IconButton>
+          }
         </Toolbar>
       </AppBar>
       <Drawer
@@ -120,6 +133,17 @@ const MainLayout = (props) => {
         }}
       >
         {drawer}
+        <br />
+        <p style={{ margin: 'auto auto 1.5rem', color: '#b8b8b8' }}>
+          Made by
+          <a
+            href="https://www.linkedin.com/in/aman07s/"
+            target="_blank"
+            style={{ textDecoration: 'underline' }}
+          >
+            Aman Singh
+          </a>
+        </p>
       </Drawer>
 
       <Box
