@@ -16,9 +16,8 @@ const CodeEditorLayout = () => {
   const { setCommandValue, runSqlCommand, commandValue } = useContext(SqlContext);
 
   const handleClick = () => {
-
     // Get the table name in command
-    const tableName = commandValue.split(' from ')[1].split(" ", 1).join()
+    const tableName = commandValue.toLowerCase().split(' from ')[1].split(" ", 1).join()
     // fetch file as per table name
     const fileData = csvFilesList.find((item) => item.name === tableName)
 
