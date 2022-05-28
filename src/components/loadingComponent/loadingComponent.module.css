@@ -1,0 +1,14 @@
+.loadingContainer {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow-1);
+  border-radius: 10px;
+}
+
+.loading {
+  font-size: 1.5rem;
+  font-weight: 600;
+}

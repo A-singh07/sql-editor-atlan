@@ -1,8 +1,10 @@
-import { useEffect, useContext } from 'react';
-import TableDataGrid from '../../components/tableCustom/TableDataGrid';
-// import TableCustom from '../../components/tableCustom/TableCustom';
+import { useContext, lazy, Suspense } from 'react';
+// import TableDataGrid from '../../components/tableCustom/TableDataGrid';
 // Context
 import { SqlContext } from '../../context/SqlContext'
+// component
+import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
+const TableDataGrid = lazy(() => import('../../components/tableCustom/TableDataGrid'))
 
 const TableLayout = () => {
 
@@ -42,10 +44,12 @@ const TableLayout = () => {
   // ]
 
   return (
-    <TableDataGrid
-      tableColumns={tableData.tableColumn}
-      tableRows={tableData.tableRow}
-    />
+    <Suspense fallback={<LoadingComponent />}>
+      <TableDataGrid
+        tableColumns={tableData.tableColumn}
+        tableRows={tableData.tableRow}
+      />
+    </Suspense>
   )
 }
 

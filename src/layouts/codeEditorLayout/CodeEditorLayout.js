@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import CodeEditor from '../../components/codeEditor/CodeEditor';
+import { useContext, lazy, Suspense } from 'react';
 import ButtonCustom from '../../components/buttonCustom/ButtonCustom';
+import LoadingComponent from '../../components/loadingComponent/LoadingComponent';
 import { csvFilesList } from '../../components/CsvFiles';
 // context
 import { SqlContext } from '../../context/SqlContext';
@@ -8,6 +8,8 @@ import { SqlContext } from '../../context/SqlContext';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 // styles
 import styles from './codeEditorLayout.module.css';
+// Lazy loaded Component
+const CodeEditor = lazy(() => import('../../components/codeEditor/CodeEditor'))
 
 const CodeEditorLayout = () => {
 
@@ -29,13 +31,15 @@ const CodeEditorLayout = () => {
   return (
     <div style={{ maxWidth: '1200px', margin: 'auto' }}>
       <div className={styles.layoutWrapper}>
-        <CodeEditor
-          fontSize={18}
-          theme={'xcode'}
-          mode={"mysql"}
-          onChange={setCommandValue}
-          value={commandValue}
-        />
+        <Suspense fallback={<LoadingComponent />}>
+          <CodeEditor
+            fontSize={18}
+            theme={'xcode'}
+            mode={"mysql"}
+            onChange={setCommandValue}
+            value={commandValue}
+          />
+        </Suspense>
         <ButtonCustom
           secondary
           customStyle={{ marginTop: '1rem' }}
