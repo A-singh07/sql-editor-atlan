@@ -44,12 +44,14 @@ const TableLayout = () => {
   // ]
 
   return (
-    <Suspense fallback={<LoadingComponent />}>
-      <TableDataGrid
-        tableColumns={tableData.tableColumn}
-        tableRows={tableData.tableRow}
-      />
-    </Suspense>
+    <div style={{ maxWidth: '1200px', margin: 'auto' }}>
+      <Suspense fallback={<LoadingComponent />}>
+        <TableDataGrid
+          tableColumns={tableData.tableColumn}
+          tableRows={tableData.tableRow}
+        />
+      </Suspense>
+    </div>
   )
 }
 
